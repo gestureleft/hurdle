@@ -1,5 +1,5 @@
 import { Component, For, Show } from "solid-js";
-import { DidAddLetter, DidMakeGuess } from "../gameLogic";
+import { DidAddLetter } from "../gameLogic";
 import { GameState } from "../types";
 import { correct, incorrect, inWord } from "../utils";
 import keyboard from "./Keyboard.module.css";
@@ -10,7 +10,7 @@ type KeyboardProps = {
   rowsRevealed: number;
   addLetter: (char: string) => DidAddLetter;
   removeLetter: () => void;
-  makeGuess: () => DidMakeGuess;
+  makeGuess: () => void;
 };
 
 const KEYS = [

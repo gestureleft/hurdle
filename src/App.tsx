@@ -55,32 +55,32 @@ const App: Component = () => {
     return DidAddLetter.No;
   };
 
-  const makeGuessWithAnimation: typeof makeGuess = () => {
-    if (doneGuessing()) return DidMakeGuess.No;
+  const makeGuessWithAnimation = (): void => {
+    if (doneGuessing()) return;
     const guess = gameState.board[rowBeingEdited()]?.guess;
     if (!guess || guess.length < WORD_LENGTH) {
       const toAnimate = document.querySelector(
         `main > :nth-child(${rowBeingEdited() + 1})`
       );
-      if (!toAnimate) return DidMakeGuess.No;
+      if (!toAnimate) return;
       doBadWordAnimation(toAnimate);
       setErrorMessage("Not enough letters");
-      return DidMakeGuess.No;
+      return;
     }
     if (WORD_LIST.indexOf(guess) < 0) {
       const toAnimate = document.querySelector(
         `main > :nth-child(${rowBeingEdited() + 1})`
       );
-      if (!toAnimate) return DidMakeGuess.No;
+      if (!toAnimate) return;
       doBadWordAnimation(toAnimate);
       setErrorMessage("Not in word list");
-      return DidMakeGuess.No;
+      return;
     }
     // We now reveal the hint for the row that is being edited
     // if the guess is valid
     setRowBeingRevealed(rowBeingEdited());
     if (makeGuess() === DidMakeGuess.No) {
-      return DidMakeGuess.No;
+      return;
     }
     setLettersRevealed(0);
     doRevealAnimation(
@@ -88,7 +88,6 @@ const App: Component = () => {
       () => setLettersRevealed((i) => i + 1),
       () => setRowsRevealed((i) => i + 1)
     );
-    return DidMakeGuess.Yes;
   };
 
   const onKeyUp = (e: KeyboardEvent) => {
