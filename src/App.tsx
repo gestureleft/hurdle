@@ -24,8 +24,14 @@ const App: Component = () => {
 
   const [lettersRevealed, setLettersRevealed] = createSignal(WORD_LENGTH);
   const [rowBeingRevealed, setRowBeingRevealed] = createSignal(0);
-  const { gameState, rowBeingEdited, addLetter, removeLetter, makeGuess } =
-    createGameStore(NUMBER_OF_GUESSES, WORD_LENGTH, WORD_LIST);
+  const {
+    gameState,
+    rowBeingEdited,
+    addLetter,
+    removeLetter,
+    makeGuess,
+    doneGuessing,
+  } = createGameStore(NUMBER_OF_GUESSES, WORD_LENGTH, WORD_LIST);
   const [rowsRevealed, setRowsRevealed] = createSignal(rowBeingEdited());
 
   const [errorMessage, setErrorMessage] = createErrorMessage(async () => {
@@ -50,6 +56,7 @@ const App: Component = () => {
   };
 
   const makeGuessWithAnimation: typeof makeGuess = () => {
+    if (doneGuessing()) return DidMakeGuess.No;
     const guess = gameState.board[rowBeingEdited()]?.guess;
     if (!guess || guess.length < WORD_LENGTH) {
       const toAnimate = document.querySelector(

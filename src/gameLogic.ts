@@ -23,6 +23,7 @@ export const createGameStore = (
   addLetter: (char: string) => DidAddLetter;
   removeLetter: () => void;
   makeGuess: () => DidMakeGuess;
+  doneGuessing: () => boolean;
 } => {
   const [gameState, setGameState] = createLocalStore(numberOfGuesses, wordList);
   const [rowBeingEdited, setRowBeingEdited] = createSignal(
@@ -62,5 +63,6 @@ export const createGameStore = (
     addLetter,
     removeLetter,
     makeGuess,
+    doneGuessing,
   };
 };
