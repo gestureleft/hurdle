@@ -3,9 +3,10 @@ import { createLocalStore } from "./localStore";
 import { GameState } from "./types";
 import { countSubmittedRows } from "./utils";
 
-export enum DidMakeGuess {
-  Yes,
-  No,
+export enum MakeGuessResult {
+  DidntMakeGuess,
+  MadeIncorrectGuess,
+  MadeCorrectGuess,
 }
 
 export enum DidAddLetter {
@@ -22,7 +23,7 @@ export const createGameStore = (
   rowBeingEdited: Accessor<number>;
   addLetter: (char: string) => DidAddLetter;
   removeLetter: () => void;
-  makeGuess: () => DidMakeGuess;
+  makeGuess: () => MakeGuessResult;
   doneGuessing: () => boolean;
 } => {
   const [gameState, setGameState] = createLocalStore(numberOfGuesses, wordList);
@@ -47,14 +48,18 @@ export const createGameStore = (
     );
   };
 
-  const makeGuess = (): DidMakeGuess => {
+  const makeGuess = (): MakeGuessResult => {
     const row = gameState.board[rowBeingEdited()];
-    if (!row || row.guess.length < wordLength) return DidMakeGuess.No;
+    if (!row || row.guess.length < wordLength)
+      return MakeGuessResult.DidntMakeGuess;
     batch(() => {
       setGameState("board", rowBeingEdited(), "submitted", true);
       setRowBeingEdited((i) => i + 1);
     });
-    return DidMakeGuess.Yes;
+    if (doneGuessing()) {
+      return MakeGuessResult.MadeCorrectGuess;
+    }
+    return MakeGuessResult.MadeIncorrectGuess;
   };
 
   return {

@@ -8,11 +8,12 @@ import {
   doBadWordAnimation,
   doFadeOutAnimation,
   doRevealAnimation,
+  doVictoryAnimation,
 } from "./animations";
 import { FiMenu } from "solid-icons/fi";
 import Grid from "./components/Grid";
 import { wordsWithNLetters } from "./words";
-import { createGameStore, DidAddLetter, DidMakeGuess } from "./gameLogic";
+import { createGameStore, DidAddLetter, MakeGuessResult } from "./gameLogic";
 import Keyboard from "./components/Keyboard";
 import { createErrorMessage } from "./errorMessage";
 import About from "./components/About";
@@ -79,14 +80,24 @@ const App: Component = () => {
     // We now reveal the hint for the row that is being edited
     // if the guess is valid
     setRowBeingRevealed(rowBeingEdited());
-    if (makeGuess() === DidMakeGuess.No) {
+    const makeGuessResult = makeGuess();
+    if (makeGuessResult === MakeGuessResult.DidntMakeGuess) {
       return;
     }
     setLettersRevealed(0);
     doRevealAnimation(
       document.querySelectorAll(`main > :nth-child(${rowBeingEdited()}) > div`),
       () => setLettersRevealed((i) => i + 1),
-      () => setRowsRevealed((i) => i + 1)
+      () => {
+        setRowsRevealed((i) => i + 1);
+        if (makeGuessResult === MakeGuessResult.MadeCorrectGuess) {
+          doVictoryAnimation(
+            document.querySelectorAll(
+              `main > :nth-child(${rowBeingEdited()}) > div`
+            )
+          );
+        }
+      }
     );
   };
 

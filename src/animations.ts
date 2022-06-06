@@ -43,6 +43,29 @@ export const doRevealAnimation = (
   startAnimate(0);
 };
 
+export const doVictoryAnimation = (elementsToAnimate: NodeListOf<Element>) => {
+  if (!elementsToAnimate.length) return;
+  const startAnimate = (n: number) => {
+    const animation = elementsToAnimate[n]?.animate(
+      [{ transform: "translateY(0)" }, { transform: "translateY(-50%)" }],
+      { duration: 150, easing: "ease-in-out" }
+    );
+    if (!animation) return;
+    animation.onfinish = () => {
+      startAnimate(n + 1);
+      elementsToAnimate[n]?.animate(
+        [
+          { transform: "translateY(-50%)" },
+          { transform: "translateY(12%)" },
+          { transform: "translateY(0)" },
+        ],
+        { duration: 400, easing: "ease-in-out" }
+      );
+    };
+  };
+  startAnimate(0);
+};
+
 export const doBadWordAnimation = (elementToAnimate: Element) => {
   elementToAnimate.animate(
     [
