@@ -1,8 +1,7 @@
 import { Accessor, batch, createSignal } from "solid-js";
 import { createLocalStore } from "./localStore";
-import { GameState, createInitialBoardState } from "./types";
+import { GameState } from "./types";
 import { countSubmittedRows } from "./utils";
-import { wordsWithNLetters } from "./words";
 
 export enum DidMakeGuess {
   Yes,
@@ -24,7 +23,6 @@ export const createGameStore = (
   addLetter: (char: string) => DidAddLetter;
   removeLetter: () => void;
   makeGuess: () => DidMakeGuess;
-  clearGuesses: () => void;
 } => {
   const [gameState, setGameState] = createLocalStore(numberOfGuesses, wordList);
   const [rowBeingEdited, setRowBeingEdited] = createSignal(
@@ -58,19 +56,11 @@ export const createGameStore = (
     return DidMakeGuess.Yes;
   };
 
-  const clearGuesses = () => {
-    batch(() => {
-      setGameState("board", createInitialBoardState(numberOfGuesses));
-      setRowBeingEdited(0);
-    });
-  };
-
   return {
     gameState,
     rowBeingEdited,
     addLetter,
     removeLetter,
     makeGuess,
-    clearGuesses,
   };
 };

@@ -24,14 +24,8 @@ const App: Component = () => {
 
   const [lettersRevealed, setLettersRevealed] = createSignal(WORD_LENGTH);
   const [rowBeingRevealed, setRowBeingRevealed] = createSignal(0);
-  const {
-    gameState,
-    rowBeingEdited,
-    addLetter,
-    removeLetter,
-    makeGuess,
-    clearGuesses,
-  } = createGameStore(NUMBER_OF_GUESSES, WORD_LENGTH, WORD_LIST);
+  const { gameState, rowBeingEdited, addLetter, removeLetter, makeGuess } =
+    createGameStore(NUMBER_OF_GUESSES, WORD_LENGTH, WORD_LIST);
   const [rowsRevealed, setRowsRevealed] = createSignal(rowBeingEdited());
 
   const [errorMessage, setErrorMessage] = createErrorMessage(async () => {
@@ -117,11 +111,6 @@ const App: Component = () => {
   });
 
   const showWord = () => setErrorMessage(`The word is ${gameState.word}`);
-
-  const handleClearClicked = () => {
-    clearGuesses();
-    setRowsRevealed(0);
-  };
 
   const [menuShown, setMenuShown] = createSignal(false);
   const toggleMenu = async (e: MouseEvent) => {
