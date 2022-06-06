@@ -1,0 +1,62 @@
+.root {
+  /* Sizes */
+  --key-gap: 0.42rem;
+  /* Colours */
+  --unused-background: #818384;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.keyRow {
+  display: flex;
+  margin-bottom: var(--key-gap);
+}
+
+.key {
+  border: none;
+  border-radius: 0.2rem;
+  padding: 1.45rem 1.08rem;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 900;
+  margin-left: var(--key-gap);
+  line-height: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  max-height: 3.6rem;
+}
+
+@media only screen and (max-device-width: 667px) {
+  .key {
+    padding: 1.3rem 0.65rem;
+    margin-left: 0.2rem;
+  }
+}
+
+.backspace {
+  padding: 1.3rem 0.65rem;
+}
+
+.key:focus {
+  outline: none;
+}
+
+.unused {
+  background-color: var(--unused-background);
+}
+
+.incorrect {
+  background-color: var(--background-incorrect)
+}
+
+.correct {
+  background-color: var(--background-correct)
+}
+
+.inWord {
+  background-color: var(--background-in-word)
+
+}

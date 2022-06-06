@@ -1,0 +1,114 @@
+
+.wordle {
+  /* Sizes */
+  --cell-size: 2.8rem;
+  --border-size: 0.14rem;
+  --header-height: 3.15rem;
+  --menu-width: 23rem;
+  /* Colours */
+  --border-colour: #3a3a3c;
+  --background-colour: #121213;
+  --border-colour-has-letter: #565758;
+  --background-correct: #538d4e;
+  --background-in-word: #b59f3b;
+  --background-incorrect: #3a3a3c;
+  --menu-border: #1a1a1b;
+
+  height: 100vh;
+  background-color: var(--background-colour);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media only screen and (max-device-width: 667px) {
+  .wordle {
+    height: -webkit-fill-available;
+    touch-action: none;
+  }
+}
+
+main {
+  --gutter-size: 0.3rem;
+  --vert-gutter-size: 0.35rem;
+}
+
+header {
+  font-family: 'PT Serif', 'Times New Roman';
+  font-weight: 900;
+  font-size: 2.3rem;
+  color: white;
+  border-bottom: 1px solid var(--border-colour);
+  width: 100vw;
+  height: var(--header-height);
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+header > div {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.7rem;
+  height: 2rem;
+  left: 0;
+}
+
+header > div > button {
+  outline: none;
+  background-color: transparent;
+  border: var(--border-size) solid white;
+  border-radius: 200rem;
+  color: white;
+  width: 1.3rem;
+  height: 1.3rem;
+  line-height: 0;
+  font-size: 0.9rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 0.6rem;
+}
+
+.menuButton {
+  border: none;
+  color: white;
+  width: 24px;
+  height: 17px;
+  padding: 0;
+}
+
+.errorDialog {
+  position: absolute;
+  top: 6.45rem;
+  background-color: white;
+  border-radius: .2rem;
+  font-weight: 900;
+  font-size: 1rem;
+  z-index: 10;
+  padding: 0.8rem;
+}
+
+.menu {
+  position: absolute;
+  left: 0;
+  display: none;
+  flex-direction: column;
+  color: white;
+  border-right: 1px solid var(--menu-border);
+  height: 100vh;
+  width: var(--menu-width);
+  margin-top: calc(var(--header-height) + 1px);
+  background-color: var(--background-colour);
+}
+
+.menuShown {
+  display: flex;
+}

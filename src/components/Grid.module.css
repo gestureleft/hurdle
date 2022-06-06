@@ -1,0 +1,51 @@
+.cell {
+  margin-left: var(--gutter-size);
+  margin-top: var(--vert-gutter-size);
+  border: var(--border-size) solid var(--border-colour);
+  color: white;
+  text-transform: capitalize;
+  font-size: 2.1rem;
+  font-weight: 900;
+  padding: 0.4rem;
+  min-width: var(--cell-size);
+  min-height: var(--cell-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cell:last-child {
+  margin-right: var(--gutter-size);
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.row:last-child {
+  margin-bottom: var(--vert-gutter-size);
+}
+
+.keyboard {
+  height: 200px
+}
+
+.has-letter {
+  border: var(--border-size) solid var(--border-colour-has-letter);
+}
+
+.correct {
+  border: var(--border-size) solid var(--background-correct);
+  background-color: var(--background-correct);
+}
+
+.in-word {
+  border: var(--border-size) solid var(--background-in-word);
+  background-color: var(--background-in-word);
+}
+
+.incorrect {
+  border: var(--border-size) solid var(--background-incorrect);
+  background-color: var(--background-incorrect);
+}
